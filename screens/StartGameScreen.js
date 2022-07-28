@@ -1,5 +1,5 @@
 import { TextInput, View, StyleSheet, } from "react-native";
-import PrimaryButton from "../Components/PrimaryButton";
+import PrimaryButton from "../components/PrimaryButton";
 
 function StartGameScreen() {
     return(
