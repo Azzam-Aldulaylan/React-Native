@@ -1,5 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
+import Colors from "../constants/colors";
+
 function PrimaryButton({ children, onPress }) {
   return (
     <View style={styles.outterButtonContainer}>
@@ -26,10 +28,10 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   innerButtonContainer: {
-    backgroundColor: "white",
+    backgroundColor: Colors.primaryW1,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    shadowColor: "white",
+    shadowColor: Colors.primaryW1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.3,
