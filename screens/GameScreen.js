@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, SafeAreaView, Alert } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Title from "../components/UI/Title";
 import NumberContainer from "../components/game/NumberContainer";
@@ -16,13 +16,19 @@ function generateRandomRangedNum(min, max, exclude) {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-function GameScreen({ userNumber }) {
+function GameScreen({ userNumber, onGameOver }) {
   const initialGuess = generateRandomRangedNum(
-    minBoundary,
-    maxBoundary,
+    1,
+    100,
     userNumber
   );
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+  useEffect(() =>{
+    if (currentGuess === userNumber) {
+      onGameOver();
+    }
+  }, [currentGuess, userNumber, onGameOver]);
 
   function nextGuessHandler(direction) {
     if (
@@ -44,7 +50,7 @@ function GameScreen({ userNumber }) {
     const newRndNumber = generateRandomRangedNum(
       minBoundary,
       maxBoundary,
-      currentGuess
+      currentGuess,
     );
     setCurrentGuess(newRndNumber);
   }
