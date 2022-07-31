@@ -1,6 +1,6 @@
 import {Text, StyleSheet} from 'react-native';
 
-import Colors from "../constants/colors";
+import Colors from "../../constants/colors";
 
 function Title({children}) {
   return <Text style={styles.title}>{children}</Text>;
@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.primaryW1,
         textAlign: 'center',
-        borderWidth: 1,
         borderColor: Colors.primaryW1,
         padding: 12,
     },
