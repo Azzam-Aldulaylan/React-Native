@@ -1,9 +1,11 @@
-import { Text, View, StyleSheet, SafeAreaView, Alert } from "react-native";
+import { View, StyleSheet, SafeAreaView, Alert } from "react-native";
 import { useState, useEffect } from "react";
 
 import Title from "../components/UI/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
+import Card from "../components/UI/Card";
+import Instruction from "../components/UI/Instructions";
 
 function generateRandomRangedNum(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -58,8 +60,8 @@ function GameScreen({ userNumber, onGameOver }) {
     <SafeAreaView style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or Lower?</Text>
+      <Card>
+        <Instruction>Higher or Lower?</Instruction>
         <View>
           <PrimaryButton onPress={nextGuessHandler.bind(this, "Grater")}>
             +
@@ -68,7 +70,7 @@ function GameScreen({ userNumber, onGameOver }) {
             -
           </PrimaryButton>
         </View>
-      </View>
+      </Card>
       {/* <View>LOG ROUNDS</View> */}
     </SafeAreaView>
   );
