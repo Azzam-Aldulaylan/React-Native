@@ -12,10 +12,13 @@ const styles = StyleSheet.create({
     title: {
       fontFamily: 'open-sans-bold',
         fontSize:24,
-        // fontWeight: 'bold',
+        textShadowColor: Colors.primaryB1,
         color: Colors.primaryW1,
         textAlign: 'center',
         borderColor: Colors.primaryW1,
         padding: 12,
+        textShadowColor:Colors.primaryB1,
+        textShadowOffset:{width: 2, height: 2},
+        textShadowRadius:16,
     },
 });
