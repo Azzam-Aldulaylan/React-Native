@@ -1,4 +1,4 @@
-import { View, StyleSheet, SafeAreaView, Alert } from "react-native";
+import { View, StyleSheet, SafeAreaView, Alert, Text } from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -20,23 +20,19 @@ let minBoundary = 1;
 let maxBoundary = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
-  const initialGuess = generateRandomRangedNum(
-    1,
-    100,
-    userNumber
-  );
+  const initialGuess = generateRandomRangedNum(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
-
-  useEffect(() =>{
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
+  useEffect(() => {
     if (currentGuess === userNumber) {
       onGameOver();
     }
   }, [currentGuess, userNumber, onGameOver]);
 
-  useEffect(() =>{
-    minBoundary= 1;
-    maxBoundary= 100;
-  },[]);
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   function nextGuessHandler(direction) {
     if (
@@ -58,30 +54,37 @@ function GameScreen({ userNumber, onGameOver }) {
     const newRndNumber = generateRandomRangedNum(
       minBoundary,
       maxBoundary,
-      currentGuess,
+      currentGuess
     );
     setCurrentGuess(newRndNumber);
+    setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
   }
   return (
     <SafeAreaView style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <Instruction style={styles.InstructionText}>Higher or Lower?</Instruction>
+        <Instruction style={styles.InstructionText}>
+          Higher or Lower?
+        </Instruction>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, "Grater")}>
-          <Ionicons name="md-add" size={24}/>
-          </PrimaryButton>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "Grater")}>
+              <Ionicons name="md-add" size={24} />
+            </PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, "Lower")}>
-          <Ionicons name="md-remove" size={24}/>
-          </PrimaryButton>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "Lower")}>
+              <Ionicons name="md-remove" size={24} />
+            </PrimaryButton>
           </View>
         </View>
       </Card>
-      {/* <View>LOG ROUNDS</View> */}
+      <View>
+        {guessRounds.map((guessRound) => (
+          <Text key={guessRound}>{guessRound}</Text>
+        ))}
+      </View>
     </SafeAreaView>
   );
 }
