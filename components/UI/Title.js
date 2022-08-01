@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.primaryW1,
         padding: 12,
         textShadowColor:Colors.primaryB1,
-        textShadowOffset:{width: 2, height: 2},
-        textShadowRadius:16,
+        textShadowOffset:{width: 3, height: 3},
+        textShadowRadius:15,
     },
 });
