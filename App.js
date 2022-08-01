@@ -78,3 +78,6 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
 });
+
+
+// Done by 1/8/2022
