@@ -3,8 +3,9 @@ import {
   StyleSheet,
   SafeAreaView,
   Alert,
-  Text,
   FlatList,
+  useWindowDimensions,
+  Text,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,6 +16,9 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 import Card from "../components/UI/Card";
 import Instruction from "../components/UI/Instructions";
 import GuessLogItem from "../components/game/GuessLogItem";
+import Colors from "../constants/Colors";
+import PrimaryButtonLandscape from "../components/UI/PrimaryButtonLandscape";
+
 
 function generateRandomRangedNum(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -31,6 +35,8 @@ function GameScreen({ userNumber, onGameOver }) {
   const initialGuess = generateRandomRangedNum(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
+  const { width, height } = useWindowDimensions();
+
   useEffect(() => {
     if (currentGuess === userNumber) {
       onGameOver(guessRounds.length);
@@ -69,9 +75,8 @@ function GameScreen({ userNumber, onGameOver }) {
   }
 
   const guessRoundsListLength = guessRounds.length;
-
-  return (
-    <SafeAreaView style={styles.screen}>
+  let content = (
+    <>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
@@ -91,10 +96,39 @@ function GameScreen({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        <Card>
+          <Text style={styles.Title}>Opponent's Guess</Text>
+          <Instruction style={styles.InstructionText}>
+            Higher or Lower?
+          </Instruction>
+        </Card>
+        <View style={styles.buttonContainerWide}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButtonLandscape onPress={nextGuessHandler.bind(this, "Grater")}>
+              <Ionicons name="md-add" size={24} color={Colors.primaryW1}/>
+            </PrimaryButtonLandscape>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.buttonContainer}>
+            <PrimaryButtonLandscape onPress={nextGuessHandler.bind(this, "Lower")}>
+              <Ionicons name="md-remove" size={24} color={Colors.primaryW1}/>
+            </PrimaryButtonLandscape>
+          </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.screen}>
+      {content}
       <View style={styles.listContainer}>
-        {/* {guessRounds.map((guessRound) => (
-          <Text key={guessRound}>{guessRound}</Text>
-        ))} */}
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -116,7 +150,17 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
-    alignItems: 'center',
+    alignItems: "center",
+  },
+  Title: {
+    fontFamily: 'open-sans-bold',
+    fontSize:24,
+    textShadowColor: Colors.primaryB1,
+    color: Colors.primaryW1,
+    textAlign: 'center',
+    borderColor: Colors.primaryW1,
+    padding: 12,
+    textShadowColor:Colors.primaryB1,
   },
   InstructionText: {
     marginBottom: 12,
@@ -131,5 +175,9 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     padding: 16,
-  }
+  },
+  buttonContainerWide: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });
