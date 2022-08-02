@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, Dimensions, useWindowDimensions } from "react-native";
+import { Text, View, StyleSheet, Image, useWindowDimensions, ScrollView } from "react-native";
 
 import Title from "../components/UI/Title";
 import Colors from "../constants/Colors";
@@ -8,10 +8,27 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 function GameOverScreen({roundsNumber, userNumber, onStartNewGame}) {
   const {width, height} = useWindowDimensions();
   const marginTopDistance = height < 380 ? 30 :100;
+  let imageSize = 300;
+
+  if (width < 380) {
+    imageSize = 150;
+  }
+
+  if (height < 400) {
+    imageSize = 100;
+  }
+
+  const imageStyle = {
+    width: imageSize,
+    height: imageSize,
+    borderRadius: imageSize / 2,
+  };
+
   return (
+    <ScrollView style={styles.Screen}>
     <View style={[styles.rootContaner, {marginTop: marginTopDistance}]}>
       <Title>GAME OVER!</Title>
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, imageStyle]}>
         <Image
           style={styles.image}
           source={require("../assets/images/success.png")}
@@ -25,25 +42,29 @@ function GameOverScreen({roundsNumber, userNumber, onStartNewGame}) {
       <PrimaryButton onPress={onStartNewGame}>Start a New Game!</PrimaryButton>
       </Card>
     </View>
+    </ScrollView>
   );
 }
 
 export default GameOverScreen;
 
-const deviceWidth = Dimensions.get('window').width;
-const deviceHeight = Dimensions.get('window').height;
+// const deviceWidth = Dimensions.get('window').width;
+// const deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+  Screen: {
+    flex: 1,
+  },
   rootContaner: {
     flex: 1,
-    padding: 24,
+    padding: 14,
     justifyContent: "center",
     alignItems: "center",
   },
   imageContainer: {
-    width: deviceWidth < 300 ? 12: 24,
-    height: deviceHeight < 300 ? 12: 24,
-    borderRadius: 150,
+    // width: deviceWidth < 300 ? 12: 24,
+    // height: deviceHeight < 300 ? 12: 24,
+    // borderRadius: 150,
     borderWidth: 3,
     borderColor: Colors.primaryW1,
     overflow: "hidden",
