@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Image, Dimensions, useWindowDimensions } from "react-native";
 
 import Title from "../components/UI/Title";
 import Colors from "../constants/Colors";
@@ -6,8 +6,10 @@ import Card from "../components/UI/Card";
 import PrimaryButton from "../components/UI/PrimaryButton";
 
 function GameOverScreen({roundsNumber, userNumber, onStartNewGame}) {
+  const {width, height} = useWindowDimensions();
+  const marginTopDistance = height < 380 ? 30 :100;
   return (
-    <View style={styles.rootContaner}>
+    <View style={[styles.rootContaner, {marginTop: marginTopDistance}]}>
       <Title>GAME OVER!</Title>
       <View style={styles.imageContainer}>
         <Image
