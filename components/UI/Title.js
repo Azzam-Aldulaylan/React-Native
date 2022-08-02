@@ -20,5 +20,7 @@ const styles = StyleSheet.create({
         textShadowColor:Colors.primaryB1,
         textShadowOffset:{width: 3, height: 3},
         textShadowRadius:15,
+        maxWidth: '80%',
+        width: 300,
     },
 });

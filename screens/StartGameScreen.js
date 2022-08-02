@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Alert, } from "react-native";
+import { TextInput, View, StyleSheet, Alert, Di } from "react-native";
 import Card from "../components/UI/Card";
 import Instruction from "../components/UI/Instructions";
 
@@ -61,6 +61,7 @@ export default StartGameScreen;
 const styles = StyleSheet.create({
   rootContainer:{
     flex: 1,
+    alignItems: 'center',
     marginTop: 100,
   },
   NumberInput: {
