@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         paddingVertical:4,
         marginVertical:4,
         marginHorizontal: 12,
-        backgroundColor: ''
+        backgroundColor: 'white',
     },
     itmeText:{
         color:'black',
